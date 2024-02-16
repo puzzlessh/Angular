@@ -1,15 +1,7 @@
-<!-- <ns-input [emailV]="emailV" [passwordV]="passwordV"></ns-input>
-
-<h1>Email: {{ emailV }}</h1>
-<h1>Password: {{ passwordV }}</h1> -->
-
-<!-- <ns-input></ns-input> -->
-
-<!-- worked -->
-<ns-input (SubmitedForm)="receiveSubmitedForm($event)"></ns-input>
-<h1>Email: {{ receivedData.email }}</h1>
-<h1>Password: {{ receivedData.password }}</h1>
-<h1>Hello</h1>
-<div *ngIf="loggedIn">
-  <h1>Logged in successfully!</h1>
-</div>
+@if (isAuth) {
+  <h1>Привет {{ email }}</h1>
+} @else {
+  <div class="wrapper">
+    <ns-input (submitted)="onLogin($event)"></ns-input>
+  </div>
+}

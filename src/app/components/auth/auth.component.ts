@@ -1,7 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { InputComponent } from './input/input.component';
-import { AuthService } from '../service/auth.service';
+import { AuthService } from './service/auth.service';
 import { CommonModule } from '@angular/common';
+import { AutData } from './input/input.type';
+
 @Component({
   selector: 'ns-auth',
   standalone: true,
@@ -10,30 +12,21 @@ import { CommonModule } from '@angular/common';
   styleUrl: './auth.component.css',
 })
 export class AuthComponent {
-  // emailV: string = '';
-  // passwordV: string = '';
-  // submitForm() {
-  //   console.log('Email:', this.emailV);
-  //   console.log('Password:', this.passwordV);
-  // }
+  private authService = inject(AuthService);
 
-  receivedData: { email: string; password: string } = {
-    email: '',
-    password: '',
-  };
+  get isAuth() {
+    return this.authService.isAuth;
+  }
 
-  loggedIn: boolean = false;
+  get email() {
+    return this.authService.email;
+  }
 
-  constructor(private authService: AuthService) {}
+  onLogin(data: AutData) {
+    const result = this.authService.login(data.email, data.password);
 
-  receiveSubmitedForm(SubmitedForm: { email: string; password: string }) {
-    this.receivedData = SubmitedForm;
-    console.log('Received Data:', this.receivedData);
-    if (this.authService.login(SubmitedForm.email, SubmitedForm.password)) {
-      this.loggedIn = true;
-      console.log('Logged in successfully!');
-    } else {
-      alert('error password ');
+    if (!result) {
+      alert('Нет такого пользователя');
     }
   }
 }

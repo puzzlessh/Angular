@@ -1,52 +1,30 @@
-<!-- <h1>{{ email.value }}</h1> -->
-<div class="auth-container">
-  <div class="auth-form">
-    <h1 class="auth-text">Authorization</h1>
-    <form [formGroup]="myForm">
-      <div class="email-input">
-        <mat-form-field class="custom-width">
-          <mat-label>Enter your email</mat-label>
-          <input
-            matInput
-            formControlName="email"
-            placeholder="name@example.com"
-            required
-          />
+<div class="form">
+  <h1 class="form__tile">Authorization</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <mat-form-field class="form__control">
+      <mat-label>Enter your email</mat-label>
+      <input matInput formControlName="email" placeholder="name@example.com" />
+      <mat-error>{{ emailErrorMessage }}</mat-error>
+    </mat-form-field>
 
-          <!--
-            [formControl]="email"
-          [(ngModel)]="emailV" -->
-          <!-- @if (emailV.invalid) {
-          <mat-error>{{ getErrorEmailMessage() }}</mat-error>
-          } -->
-        </mat-form-field>
+    <mat-form-field class="form__control">
+      <mat-label>Enter your password</mat-label>
+      <input matInput formControlName="password" [type]="passwordInputType" />
+      <mat-error>Не правильно заполнено поле</mat-error>
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="onTogglePasswordVisible()"
+        type="button"
+      >
+        <mat-icon>
+          {{ isPasswordVisible ? "visibility_off" : "visibility" }}
+        </mat-icon>
+      </button>
+    </mat-form-field>
 
-        <mat-form-field class="custom-width">
-          <mat-label>Enter your password</mat-label>
-          <input
-            matInput
-            formControlName="password"
-            [type]="hide ? 'password' : 'text'"
-          />
-
-          <!-- [type]="hide ? 'password' : 'text'"
-          [formControl]="password" -->
-          <!-- [(ngModel)]="passwordV" -->
-          <button
-            mat-icon-button
-            matSuffix
-            [attr.aria-label]="'Hide password'"
-            [attr.aria-pressed]="hide"
-          >
-            <!-- (click)="hide = !hide"
-          [attr.aria-pressed]="hide" -->
-            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-          </button>
-        </mat-form-field>
-        <button mat-raised-button type="submit" (click)="submitForm()">
-          Login
-        </button>
-      </div>
-    </form>
-  </div>
+    <div class="form__action">
+      <button mat-raised-button type="submit">Login</button>
+    </div>
+  </form>
 </div>

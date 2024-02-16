@@ -1,18 +1,21 @@
-.auth-form {
-  margin: 30px auto;
-  /* margin: 0 auto; */
+.form {
   width: 300px;
   padding: 20px;
   border-radius: 10px;
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
 }
-.custom-width {
-  width: 300px;
-}
-.auth-text {
+
+.form__tile {
   text-align: center;
 }
-.email-input {
-  text-align: center;
+
+.form__control {
+  width: 100%;
+}
+
+.form__action {
+  display: flex;
+  justify-content: center;
 }
