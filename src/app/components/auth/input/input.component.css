@@ -1,0 +1,18 @@
+.auth-form {
+  margin: 30px auto;
+  /* margin: 0 auto; */
+  width: 300px;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.custom-width {
+  width: 300px;
+}
+.auth-text {
+  text-align: center;
+}
+.email-input {
+  text-align: center;
+}
