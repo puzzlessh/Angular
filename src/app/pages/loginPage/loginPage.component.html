@@ -1,5 +1,7 @@
 @if (isAuth) {
   <h1>Привет {{ email }}</h1>
+  <ns-user-button></ns-user-button>
+  <!-- <p>{{ authToken }}</p> -->
 } @else {
   <div class="wrapper">
     <ns-input (submitted)="onLogin($event)"></ns-input>

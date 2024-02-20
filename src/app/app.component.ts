@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { AuthComponent } from './components/auth/auth.component';
+import { LoginPageComponent } from './pages/loginPage/loginPage.component';
 import { NgClass } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'ns-root',
   standalone: true,
-  imports: [MatSlideToggleModule, AuthComponent, NgClass],
+  imports: [LoginPageComponent, NgClass, HttpClientModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })

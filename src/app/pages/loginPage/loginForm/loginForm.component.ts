@@ -10,7 +10,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AutData, AuthForm } from './input.type';
+import { AutData, AuthForm } from './loginForm.type';
 
 @Component({
   selector: 'ns-input',
@@ -23,10 +23,10 @@ import { AutData, AuthForm } from './input.type';
     FormsModule,
     ReactiveFormsModule,
   ],
-  templateUrl: './input.component.html',
-  styleUrl: './input.component.css',
+  templateUrl: './loginForm.component.html',
+  styleUrl: './loginForm.component.css',
 })
-export class InputComponent {
+export class LoginFormComponent {
   isPasswordVisible = false;
 
   form = new FormGroup<AuthForm>({
@@ -36,7 +36,7 @@ export class InputComponent {
     }),
     password: new FormControl('', {
       nonNullable: true,
-      validators: [Validators.required, Validators.minLength(8)],
+      validators: [Validators.required, Validators.minLength(4)],
     }),
   });
 
