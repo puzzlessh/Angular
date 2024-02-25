@@ -1,56 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
-
-  isAuth = false;
-  email = '';
-  authToken = null;
-
-  getToken(email: string, password: string): Observable<string> {
-    const body = { email, password };
-    return this.http.post<any>('http://localhost:3001/login', body).pipe(
-      map((response) => {
-        console.log(response);
-        console.log('Token:', response.token);
-        return response.token;
-      }),
-      catchError((error) => {
-        console.error('error', error);
-        return throwError(error);
-      }),
-    );
+  constructor(private http: HttpClient) {
+    this.authToken = localStorage.getItem('Token');
+  }
+  get isAuth() {
+    return !!this.authToken;
   }
 
+  email = '';
+  authToken: null | string = null;
+
   login(email: string, password: string) {
-    // const body = { email, password };
-    //console.log(this.http.post<any>('localhost:3001/login', body));
-    // this.http.post<any>();
-    // this.http.post<any>('http://localhost:3001/login', body).subscribe(
-    //   (response) => {
-    //     console.log(response);
-    //     console.log('Token:', response.token);
-    //     this.authToken = response.token;
-    //   },
-    //   (error) => {
-    //     console.error('error', error);
-    //   },
-    // );
+    const body = { email, password };
 
-    if (email === 'admin@admin.ru' && password === 'admin') {
-      this.isAuth = true;
-      this.email = email;
-    } else {
-      this.isAuth = false;
-      this.email = '';
-    }
-
-    return this.isAuth;
+    return this.http
+      .post<{ token: string }>('http://localhost:3001/login', body)
+      .pipe(
+        tap((res) => {
+          this.authToken = res.token;
+          this.email = email;
+          localStorage.setItem('Token', this.authToken);
+        }),
+      );
   }
 }

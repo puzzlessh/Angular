@@ -10,17 +10,11 @@ export class UserService {
   constructor(private http: HttpClient) {}
 
   getUsers(authToken: string): Observable<any[]> {
-    return this.http
-      .get<any[]>('http://localhost:3001/users', {
-        headers: {
-          Authorization: authToken,
-        },
-      })
-      .pipe(
-        catchError((error) => {
-          console.error('Ошибка получения пользователей:', error);
-          return throwError(error);
-        }),
-      );
+    return this.http.get<any[]>('http://localhost:3001/users', {}).pipe(
+      catchError((error) => {
+        console.error('Ошибка получения пользователей:', error);
+        return throwError(error);
+      }),
+    );
   }
 }

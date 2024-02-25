@@ -3,7 +3,7 @@ import { LoginFormComponent } from './loginForm/loginForm.component';
 import { AuthService } from '../service/auth.service';
 import { CommonModule } from '@angular/common';
 import { AutData } from './loginForm/loginForm.type';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpErrorResponse } from '@angular/common/http';
 import { UserButtonComponent } from '../components/button.component';
 
 @Component({
@@ -32,18 +32,15 @@ export class LoginPageComponent {
   get email() {
     return this.authService.email;
   }
-  getToken(data: AutData) {
-    const result = this.authService.getToken(data.email, data.password);
 
-    if (!result) {
-      alert('Нет такого пользователя');
-    }
-  }
   onLogin(data: AutData) {
-    const result = this.authService.login(data.email, data.password);
-
-    if (!result) {
-      alert('Нет такого пользователя');
-    }
+    this.authService.login(data.email, data.password).subscribe({
+      next: (res) => {
+        console.log(res);
+      },
+      error: (err: HttpErrorResponse) => {
+        alert(err.error);
+      },
+    });
   }
 }
